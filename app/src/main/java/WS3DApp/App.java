@@ -3,9 +3,12 @@
  */
 package WS3DApp;
 
+import java.util.List;
 import java.util.Random;
+import ws3dproxy.CommandUtility;
 import ws3dproxy.WS3DProxy;
 import ws3dproxy.model.Creature;
+import ws3dproxy.model.Thing;
 import ws3dproxy.model.World;
 import ws3dproxy.model.WorldPoint;
 
@@ -27,11 +30,38 @@ public class App {
             World.createFood(0, 350, 75);
             World.createFood(0, 100, 220);
             World.createFood(0, 250, 210);
+            World.createFood(0, 200,550);
             c = proxy.createCreature(100,450,0);
+            System.out.println("Criatura c criada como sendo "+c.getName());
+            World.createFood(0,100,600);
+            Creature c2 = proxy.createCreature(100,550,Math.PI/2,1);
+            System.out.println("Criatura c2 criada como sendo"+c2.getName());
+            
+            System.out.println("1 Criatura c2 agora é "+c2.getName()+" Criatura c agora é "+c.getName()+" c: "+c+" c2: "+c2);
             c.start();
+            System.out.println("2 Criatura c2 agora é "+c2.getName()+" Criatura c agora é "+c.getName()+" c: "+c+" c2: "+c2);
+            c2.start();
+            System.out.println("3 Criatura c2 agora é "+c2.getName()+" Criatura c agora é "+c.getName()+" c: "+c+" c2: "+c2);
+            c2.updateState();
+            System.out.println("4 Criatura c2 agora é "+c2.getName()+" Criatura c agora é "+c.getName()+" c: "+c+" c2: "+c2);
+            c.updateState();
+            System.out.println("5 Criatura c2 agora é "+c2.getName()+" Criatura c agora é "+c.getName()+" c: "+c+" c2: "+c2);
             WorldPoint position = c.getPosition();
+            System.out.println("6 Criatura c2 agora é "+c2.getName()+" Criatura c agora é "+c.getName()+" c: "+c+" c2: "+c2);
             double pitch = c.getPitch();
-            double fuel = c.getFuel();    
+            System.out.println("7 Criatura c2 agora é "+c2.getName()+" Criatura c agora é "+c.getName()+" c: "+c+" c2: "+c2);
+            double fuel = c.getFuel();  
+            System.out.println("8 Criatura c2 agora é "+c2.getName()+" Criatura c agora é "+c.getName()+" c: "+c+" c2: "+c2);
+            List<Thing> lt = c2.getThingsInVision();
+            System.out.println("9 Criatura c2 agora é "+c2.getName()+" Criatura c agora é "+c.getName()+" c: "+c+" c2: "+c2);
+            if (lt.size() == 0) System.out.println(c2.getName()+" não vê nada !");
+            for (Thing t :lt) {
+                System.out.println("10 Criatura c2 agora é "+c2.getName()+" Criatura c agora é "+c.getName()+" c: "+c+" c2: "+c2);
+                System.out.println("I will try to delete "+t.getName());
+                
+                CommandUtility.sendDeleteThing(0, t.getName());
+                System.out.println("succeeded");
+            }            
         } catch (Exception e) {
             System.out.println("Erro capturado"); 
         }
