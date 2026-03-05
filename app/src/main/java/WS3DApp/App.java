@@ -22,8 +22,9 @@ public class App {
     }
     
     public App() {
-        WS3DProxy proxy = new WS3DProxy();
+        
         try {   
+            WS3DProxy proxy = new WS3DProxy();
             w = World.getInstance();
             width = w.getEnvironmentWidth();
             height = w.getEnvironmentHeight();
@@ -40,7 +41,7 @@ public class App {
             c.start();
             
         } catch (Exception e) {
-            System.out.println("Erro capturado"); 
+            System.out.println("Não foi possível acessar o WS3D"); 
         }
     }
             
